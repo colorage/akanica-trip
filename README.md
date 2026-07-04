@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:4321/akanica-trip/](http://localhost:4321/akanica-trip/).
+Open [http://localhost:4321/](http://localhost:4321/).
 
 ## Build
 
@@ -28,7 +28,7 @@ npm run preview
 2. In repo **Settings → Pages**, set source to **GitHub Actions**.
 3. Push to `main` — the workflow in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds and deploys automatically.
 
-If you use a user site repo (`username.github.io`), change `base` in [`astro.config.mjs`](astro.config.mjs) to `'/'`.
+**Site URL (after deploy):** [https://trip.siaroza.com/](https://trip.siaroza.com/)
 
 ## Photo structure
 

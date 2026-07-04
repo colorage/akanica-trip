@@ -3,14 +3,25 @@ import sharp from 'sharp';
 
 export interface PhotoMeta {
 	src: string;
+	thumbSrc: string;
 	width: number;
 	height: number;
+	thumbWidth: number;
+	thumbHeight: number;
 }
 
 export function photoUrl(folder: string, filename: string): string {
 	const base = import.meta.env.BASE_URL;
 	const encodedFolder = folder.split('/').map(encodeURIComponent).join('/');
 	return `${base}photos/${encodedFolder}/${filename}`;
+}
+
+export function thumbFilename(filename: string): string {
+	return filename.replace(/\.jpe?g$/i, '.thumb.webp');
+}
+
+export function thumbUrl(folder: string, filename: string): string {
+	return photoUrl(folder, thumbFilename(filename));
 }
 
 export function getPhotoFilenames(): string[] {
@@ -22,16 +33,34 @@ export async function getImageMeta(
 	filename: string,
 ): Promise<PhotoMeta> {
 	const filePath = path.join(process.cwd(), 'public', 'photos', folder, filename);
-	const { width, height } = await sharp(filePath).metadata();
+	const thumbPath = path.join(
+		process.cwd(),
+		'public',
+		'photos',
+		folder,
+		thumbFilename(filename),
+	);
 
-	if (!width || !height) {
+	const [original, thumb] = await Promise.all([
+		sharp(filePath).metadata(),
+		sharp(thumbPath).metadata(),
+	]);
+
+	if (!original.width || !original.height) {
 		throw new Error(`Could not read dimensions for ${filePath}`);
+	}
+
+	if (!thumb.width || !thumb.height) {
+		throw new Error(`Could not read dimensions for ${thumbPath}`);
 	}
 
 	return {
 		src: photoUrl(folder, filename),
-		width,
-		height,
+		thumbSrc: thumbUrl(folder, filename),
+		width: original.width,
+		height: original.height,
+		thumbWidth: thumb.width,
+		thumbHeight: thumb.height,
 	};
 }
 

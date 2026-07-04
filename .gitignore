@@ -23,6 +23,9 @@ pnpm-debug.log*
 # duplicate photo folder at repo root (canonical copy is public/photos/)
 /photos/
 
+# generated photo thumbnails
+*.thumb.webp
+
 # scaffold leftover
 /ossified-orbit/
 

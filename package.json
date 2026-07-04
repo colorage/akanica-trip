@@ -7,7 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "optimize-photos": "node scripts/optimize-photos.mjs",
+    "predev": "npm run optimize-photos",
     "build": "astro build",
+    "prebuild": "npm run optimize-photos",
     "preview": "astro preview",
     "astro": "astro"
   },

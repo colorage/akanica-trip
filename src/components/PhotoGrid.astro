@@ -22,9 +22,9 @@ const photos = await Promise.all(filenames.map((filename) => getImageMeta(folder
 					data-pswp-height={photo.height}
 				>
 					<img
-						src={photo.src}
-						width={photo.width}
-						height={photo.height}
+						src={photo.thumbSrc}
+						width={photo.thumbWidth}
+						height={photo.thumbHeight}
 						alt=""
 						loading="lazy"
 						decoding="async"

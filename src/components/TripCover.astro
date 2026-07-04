@@ -1,14 +1,15 @@
 ---
-import { formatTripDate, photoUrl } from '../utils/photos';
+import { formatTripDate, thumbUrl } from '../utils/photos';
 
 interface Props {
 	title: string;
 	date: string;
 	folder: string;
+	priority?: boolean;
 }
 
-const { title, date, folder } = Astro.props;
-const coverSrc = photoUrl(folder, 'cover.jpeg');
+const { title, date, folder, priority = false } = Astro.props;
+const coverSrc = thumbUrl(folder, 'cover.jpeg');
 ---
 
 <section class="trip-cover" aria-label={title}>
@@ -16,8 +17,9 @@ const coverSrc = photoUrl(folder, 'cover.jpeg');
 		class="trip-cover__image"
 		src={coverSrc}
 		alt=""
-		loading="lazy"
+		loading={priority ? 'eager' : 'lazy'}
 		decoding="async"
+		fetchpriority={priority ? 'high' : undefined}
 	/>
 	<div class="trip-cover__overlay">
 		<h2 class="trip-cover__title">{title}</h2>

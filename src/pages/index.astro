@@ -2,15 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import TripCover from '../components/TripCover.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
+import { thumbUrl } from '../utils/photos';
 import trips from '../data/trips.json';
+
+const firstTrip = trips[0];
+const firstCoverSrc = firstTrip ? thumbUrl(firstTrip.folder, 'cover.jpeg') : undefined;
 ---
 
 <Layout title="Akanica Trip">
+	{firstCoverSrc && <link slot="head" rel="preload" as="image" href={firstCoverSrc} fetchpriority="high" />}
 	<main class="gallery-page">
 		{
-			trips.map((trip) => (
+			trips.map((trip, index) => (
 				<article class="trip" id={trip.slug}>
-					<TripCover title={trip.title} date={trip.date} folder={trip.folder} />
+					<TripCover
+						title={trip.title}
+						date={trip.date}
+						folder={trip.folder}
+						priority={index === 0}
+					/>
 					<PhotoGrid folder={trip.folder} slug={trip.slug} />
 				</article>
 			))

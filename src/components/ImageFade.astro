@@ -1,0 +1,17 @@
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+		const reveal = (img: HTMLImageElement) => img.classList.add('is-loaded');
+
+		document.querySelectorAll<HTMLImageElement>('img.img-fade').forEach((img) => {
+			if (img.complete && img.naturalWidth > 0) {
+				reveal(img);
+				return;
+			}
+
+			img.addEventListener('load', () => reveal(img), { once: true });
+			img.addEventListener('error', () => reveal(img), { once: true });
+		});
+	});
+</script>

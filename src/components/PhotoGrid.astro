@@ -22,6 +22,7 @@ const photos = await Promise.all(filenames.map((filename) => getImageMeta(folder
 					data-pswp-height={photo.height}
 				>
 					<img
+						class="img-fade"
 						src={photo.thumbSrc}
 						width={photo.thumbWidth}
 						height={photo.thumbHeight}

@@ -44,25 +44,9 @@ function layoutJustifiedRow(
 	return { boxes, containerHeight: rowHeight };
 }
 
-function layoutLeftAlignedRow(
-	aspectRatios: number[],
-	boxSpacing: number,
-	targetRowHeight: number,
-): LayoutResult {
-	let left = 0;
-
-	const boxes = aspectRatios.map((ratio) => {
-		const width = ratio * targetRowHeight;
-		const box = { top: 0, left, width, height: targetRowHeight };
-		left += width + boxSpacing;
-		return box;
-	});
-
-	return { boxes, containerHeight: targetRowHeight };
-}
-
 function buildRows(aspectRatios: number[], options: LayoutOptions): number[][] {
 	const { containerWidth, boxSpacing, targetRowHeight } = options;
+	const minRowHeight = targetRowHeight * 0.55;
 	const rows: number[][] = [];
 	let row: number[] = [];
 
@@ -70,7 +54,7 @@ function buildRows(aspectRatios: number[], options: LayoutOptions): number[][] {
 		row.push(ratio);
 		const height = rowHeightForAspects(row, containerWidth, boxSpacing);
 
-		if (height <= targetRowHeight) {
+		if (height <= targetRowHeight && height >= minRowHeight) {
 			rows.push(row);
 			row = [];
 		}
@@ -99,20 +83,15 @@ function computeLayout(aspectRatios: number[], options: LayoutOptions): LayoutRe
 	const boxes: LayoutBox[] = [];
 	let top = 0;
 
-	rows.forEach((row, rowIndex) => {
-		const isLastRow = rowIndex === rows.length - 1;
-		const isOnlyRow = rows.length === 1;
-		const rowLayout =
-			isLastRow && !isOnlyRow
-				? layoutLeftAlignedRow(row, options.boxSpacing, options.targetRowHeight)
-				: layoutJustifiedRow(row, options.containerWidth, options.boxSpacing);
+	for (const row of rows) {
+		const rowLayout = layoutJustifiedRow(row, options.containerWidth, options.boxSpacing);
 
 		for (const box of rowLayout.boxes) {
 			boxes.push({ ...box, top });
 		}
 
 		top += rowLayout.containerHeight + options.boxSpacing;
-	});
+	}
 
 	return { boxes, containerHeight: Math.max(0, top - options.boxSpacing) };
 }

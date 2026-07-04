@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Footer from '../components/Footer.astro';
 import Lightbox from '../components/Lightbox.astro';
 
 interface Props {
@@ -22,6 +23,7 @@ const { title = 'Akanica Trip' } = Astro.props;
 	</head>
 	<body>
 		<slot />
+		<Footer />
 		<Lightbox />
 	</body>
 </html>

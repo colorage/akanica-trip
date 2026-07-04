@@ -1,0 +1,36 @@
+---
+import { getImageMeta, getPhotoFilenames } from '../utils/photos';
+
+interface Props {
+	folder: string;
+	slug: string;
+}
+
+const { folder, slug } = Astro.props;
+const filenames = getPhotoFilenames();
+const photos = await Promise.all(filenames.map((filename) => getImageMeta(folder, filename)));
+---
+
+<section class="photo-grid-section" aria-label="Trip photos">
+	<div class="photo-grid gallery" id={`gallery-${slug}`}>
+		{
+			photos.map((photo) => (
+				<a
+					class="photo-grid__item"
+					href={photo.src}
+					data-pswp-width={photo.width}
+					data-pswp-height={photo.height}
+				>
+					<img
+						src={photo.src}
+						width={photo.width}
+						height={photo.height}
+						alt=""
+						loading="lazy"
+						decoding="async"
+					/>
+				</a>
+			))
+		}
+	</div>
+</section>

@@ -1,0 +1,56 @@
+[
+	{
+		"slug": "trip-1",
+		"folder": "trip 1",
+		"title": "Trip 1",
+		"date": "2026-04-24"
+	},
+	{
+		"slug": "trip-2",
+		"folder": "trip 2",
+		"title": "Trip 2",
+		"date": "2026-05-02"
+	},
+	{
+		"slug": "trip-3",
+		"folder": "trip 3",
+		"title": "Trip 3",
+		"date": "2026-05-09"
+	},
+	{
+		"slug": "trip-4",
+		"folder": "trip 4",
+		"title": "Trip 4",
+		"date": "2026-05-17"
+	},
+	{
+		"slug": "trip-5",
+		"folder": "trip 5",
+		"title": "Trip 5",
+		"date": "2026-05-30"
+	},
+	{
+		"slug": "trip-6",
+		"folder": "trip 6",
+		"title": "Trip 6",
+		"date": "2026-06-04"
+	},
+	{
+		"slug": "trip-7",
+		"folder": "trip 7",
+		"title": "Trip 7",
+		"date": "2026-06-06"
+	},
+	{
+		"slug": "trip-8",
+		"folder": "trip 8",
+		"title": "Trip 8",
+		"date": "2026-06-20"
+	},
+	{
+		"slug": "trip-9",
+		"folder": "trip 9",
+		"title": "Trip 9",
+		"date": "2026-07-02"
+	}
+]

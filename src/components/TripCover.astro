@@ -1,0 +1,26 @@
+---
+import { formatTripDate, photoUrl } from '../utils/photos';
+
+interface Props {
+	title: string;
+	date: string;
+	folder: string;
+}
+
+const { title, date, folder } = Astro.props;
+const coverSrc = photoUrl(folder, 'cover.jpeg');
+---
+
+<section class="trip-cover" aria-label={title}>
+	<img
+		class="trip-cover__image"
+		src={coverSrc}
+		alt=""
+		loading="lazy"
+		decoding="async"
+	/>
+	<div class="trip-cover__overlay">
+		<h2 class="trip-cover__title">{title}</h2>
+		<time class="trip-cover__date" datetime={date}>{formatTripDate(date)}</time>
+	</div>
+</section>

@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TripCover from '../components/TripCover.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import trips from '../data/trips.json';
+---
+
+<Layout title="Akanica Trip">
+	<main class="gallery-page">
+		{
+			trips.map((trip) => (
+				<article class="trip" id={trip.slug}>
+					<TripCover title={trip.title} date={trip.date} folder={trip.folder} />
+					<PhotoGrid folder={trip.folder} slug={trip.slug} />
+				</article>
+			))
+		}
+	</main>
+</Layout>

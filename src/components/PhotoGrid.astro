@@ -20,6 +20,7 @@ const photos = await Promise.all(filenames.map((filename) => getImageMeta(folder
 					href={photo.src}
 					data-pswp-width={photo.width}
 					data-pswp-height={photo.height}
+					data-aspect-ratio={(photo.width / photo.height).toFixed(4)}
 				>
 					<img
 						class="img-fade"
@@ -35,3 +36,9 @@ const photos = await Promise.all(filenames.map((filename) => getImageMeta(folder
 		}
 	</div>
 </section>
+
+<script>
+	import { initJustifiedGalleries } from '../scripts/justified-gallery';
+
+	initJustifiedGalleries();
+</script>

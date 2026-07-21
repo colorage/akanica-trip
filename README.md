@@ -35,4 +35,4 @@ npm run preview
 Each trip folder in `public/photos/` should contain:
 
 - `cover.jpeg` — fullscreen cover image
-- `photo_1.jpeg` … `photo_10.jpeg` — gallery photos
+- `photo_1.jpeg`, `photo_2.jpeg`, … — gallery photos (any count)

@@ -12,7 +12,7 @@ const { title, date, folder, priority = false } = Astro.props;
 const coverSrc = thumbUrl(folder, 'cover.jpeg');
 ---
 
-<section class="trip-cover" aria-label={title}>
+<section class="trip-cover" aria-label={title} data-parallax-cover>
 	<img
 		class="trip-cover__image img-fade"
 		src={coverSrc}
@@ -20,9 +20,57 @@ const coverSrc = thumbUrl(folder, 'cover.jpeg');
 		loading={priority ? 'eager' : 'lazy'}
 		decoding="async"
 		fetchpriority={priority ? 'high' : undefined}
+		data-parallax-image
 	/>
 	<div class="trip-cover__overlay">
 		<h2 class="trip-cover__title">{title}</h2>
 		<time class="trip-cover__date" datetime={date}>{formatTripDate(date)}</time>
 	</div>
 </section>
+
+<script>
+	const PARALLAX_FACTOR = 0.18;
+
+	function initCoverParallax() {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+		const covers = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax-cover]'));
+		if (covers.length === 0) return;
+
+		let ticking = false;
+
+		const update = () => {
+			for (const cover of covers) {
+				const image = cover.querySelector<HTMLElement>('[data-parallax-image]');
+				if (!image) continue;
+
+				const rect = cover.getBoundingClientRect();
+				const viewHeight = window.innerHeight;
+
+				if (rect.bottom < 0 || rect.top > viewHeight) {
+					continue;
+				}
+
+				const offset = -rect.top * PARALLAX_FACTOR;
+				image.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+			}
+			ticking = false;
+		};
+
+		const onScroll = () => {
+			if (ticking) return;
+			ticking = true;
+			requestAnimationFrame(update);
+		};
+
+		update();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onScroll, { passive: true });
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initCoverParallax, { once: true });
+	} else {
+		initCoverParallax();
+	}
+</script>

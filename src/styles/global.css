@@ -8,6 +8,12 @@ html {
 	scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
 body {
 	margin: 0;
 	font-family:
@@ -46,6 +52,125 @@ img.img-fade.is-loaded {
 
 .gallery-page {
 	margin: 0;
+}
+
+.side-nav {
+	position: fixed;
+	top: 50%;
+	left: clamp(0.75rem, 2vw, 1.5rem);
+	z-index: 40;
+	transform: translateY(-50%);
+	pointer-events: none;
+}
+
+.side-nav__list {
+	margin: 0;
+	padding: 0.7rem 0.55rem;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	pointer-events: auto;
+	border-radius: 8px;
+	background: rgba(20, 20, 18, 0.42);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.side-nav__item {
+	margin: 0;
+}
+
+.side-nav__link {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 0.55rem;
+	min-height: 1.5rem;
+	padding: 0.25rem 0.4rem;
+	color: rgba(255, 255, 255, 0.72);
+	text-decoration: none;
+	border-radius: 4px;
+	transition:
+		color 0.2s ease,
+		background-color 0.2s ease;
+}
+
+.side-nav__link:hover,
+.side-nav__link:focus-visible {
+	color: #fff;
+}
+
+.side-nav__link:focus-visible {
+	outline: 2px solid rgba(255, 255, 255, 0.55);
+	outline-offset: 2px;
+}
+
+.side-nav__link.is-active {
+	color: #fff;
+}
+
+.side-nav__dot {
+	flex-shrink: 0;
+	width: 0.4rem;
+	height: 0.4rem;
+	border-radius: 50%;
+	background: currentColor;
+	opacity: 0.5;
+	transition:
+		transform 0.25s ease,
+		opacity 0.25s ease;
+}
+
+.side-nav__link.is-active .side-nav__dot {
+	opacity: 1;
+	transform: scale(1.4);
+}
+
+.side-nav__label {
+	display: none;
+	max-width: 9.5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 0.72rem;
+	font-weight: 500;
+	letter-spacing: 0.03em;
+	line-height: 1.2;
+}
+
+@media (min-width: 900px) {
+	.side-nav__list {
+		padding: 0.8rem 0.65rem;
+	}
+
+	.side-nav__label {
+		display: block;
+		max-width: 0;
+		opacity: 0;
+		transform: translateX(-4px);
+		transition:
+			max-width 0.25s ease,
+			opacity 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.side-nav:hover .side-nav__label,
+	.side-nav:focus-within .side-nav__label,
+	.side-nav__link.is-active .side-nav__label {
+		max-width: 9.5rem;
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.side-nav__link,
+	.side-nav__dot,
+	.side-nav__label {
+		transition: none;
+	}
 }
 
 .trip + .trip {

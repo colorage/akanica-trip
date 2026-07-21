@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import TripCover from '../components/TripCover.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
+import SideNav from '../components/SideNav.astro';
 import { thumbUrl } from '../utils/photos';
 import trips from '../data/trips.json';
 
@@ -11,6 +12,7 @@ const firstCoverSrc = firstTrip ? thumbUrl(firstTrip.folder, 'cover.jpeg') : und
 
 <Layout title="Akanica Trip">
 	{firstCoverSrc && <link slot="head" rel="preload" as="image" href={firstCoverSrc} fetchpriority="high" />}
+	<SideNav trips={trips} />
 	<main class="gallery-page">
 		{
 			trips.map((trip, index) => (

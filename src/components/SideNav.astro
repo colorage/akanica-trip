@@ -1,0 +1,105 @@
+---
+interface Trip {
+	slug: string;
+	title: string;
+	date: string;
+}
+
+interface Props {
+	trips: Trip[];
+}
+
+const { trips } = Astro.props;
+---
+
+{
+	trips.length > 0 && (
+		<nav class="side-nav" aria-label="Trip sections" data-side-nav>
+			<ol class="side-nav__list">
+				{trips.map((trip) => (
+					<li class="side-nav__item">
+						<a class="side-nav__link" href={`#${trip.slug}`} data-nav-link={trip.slug}>
+							<span class="side-nav__dot" aria-hidden="true" />
+							<span class="side-nav__label">{trip.title}</span>
+						</a>
+					</li>
+				))}
+			</ol>
+		</nav>
+	)
+}
+
+<script>
+	function initSideNav() {
+		const nav = document.querySelector<HTMLElement>('[data-side-nav]');
+		if (!nav) return;
+
+		const links = [...nav.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')];
+		const sections = links
+			.map((link) => {
+				const id = link.dataset.navLink;
+				return id ? document.getElementById(id) : null;
+			})
+			.filter((section): section is HTMLElement => Boolean(section));
+
+		if (sections.length === 0) return;
+
+		const setActive = (slug: string) => {
+			for (const link of links) {
+				const isActive = link.dataset.navLink === slug;
+				link.classList.toggle('is-active', isActive);
+				if (isActive) {
+					link.setAttribute('aria-current', 'true');
+				} else {
+					link.removeAttribute('aria-current');
+				}
+			}
+		};
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const visible = entries
+					.filter((entry) => entry.isIntersecting)
+					.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+				if (visible[0]?.target.id) {
+					setActive(visible[0].target.id);
+				}
+			},
+			{
+				rootMargin: '-20% 0px -55% 0px',
+				threshold: [0, 0.1, 0.25, 0.5],
+			},
+		);
+
+		for (const section of sections) {
+			observer.observe(section);
+		}
+
+		setActive(sections[0].id);
+
+		for (const link of links) {
+			link.addEventListener('click', (event) => {
+				const id = link.dataset.navLink;
+				const target = id ? document.getElementById(id) : null;
+				if (!target) return;
+
+				event.preventDefault();
+				const prefersReducedMotion = window.matchMedia(
+					'(prefers-reduced-motion: reduce)',
+				).matches;
+
+				target.scrollIntoView({
+					behavior: prefersReducedMotion ? 'auto' : 'smooth',
+					block: 'start',
+				});
+
+				history.replaceState(null, '', `#${id}`);
+				setActive(id!);
+			});
+		}
+	}
+
+	initSideNav();
+	document.addEventListener('astro:page-load', initSideNav);
+</script>

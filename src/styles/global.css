@@ -17,8 +17,8 @@ body {
 		BlinkMacSystemFont,
 		'Segoe UI',
 		sans-serif;
-	background: #f4f4f2;
-	color: #1a1a1a;
+	background: #000;
+	color: #f4f4f2;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -49,7 +49,7 @@ img.img-fade.is-loaded {
 }
 
 .trip + .trip {
-	border-top: 1px solid rgba(0, 0, 0, 0.06);
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .trip-cover {
@@ -123,13 +123,13 @@ img.img-fade.is-loaded {
 	border-radius: 4px;
 	overflow: hidden;
 	cursor: zoom-in;
-	background: #e8e8e6;
+	background: #1a1a1a;
 	transition: box-shadow 0.2s ease;
 	will-change: transform;
 }
 
 .photo-grid__item:hover {
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .photo-grid__item img {
@@ -154,7 +154,7 @@ img.img-fade.is-loaded {
 .site-footer {
 	padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 5vw, 3rem);
 	text-align: center;
-	border-top: 1px solid rgba(0, 0, 0, 0.06);
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .site-footer__link {
@@ -164,18 +164,18 @@ img.img-fade.is-loaded {
 	font-size: 0.875rem;
 	font-weight: 500;
 	letter-spacing: 0.02em;
-	color: rgba(26, 26, 26, 0.5);
+	color: rgba(244, 244, 242, 0.5);
 	text-decoration: none;
 	transition: color 0.2s ease;
 }
 
 .site-footer__link:hover,
 .site-footer__link:focus-visible {
-	color: rgba(26, 26, 26, 0.85);
+	color: rgba(244, 244, 242, 0.85);
 }
 
 .site-footer__link:focus-visible {
-	outline: 2px solid rgba(26, 26, 26, 0.25);
+	outline: 2px solid rgba(244, 244, 242, 0.25);
 	outline-offset: 3px;
 	border-radius: 2px;
 }

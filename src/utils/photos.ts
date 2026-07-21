@@ -1,3 +1,4 @@
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -24,8 +25,18 @@ export function thumbUrl(folder: string, filename: string): string {
 	return photoUrl(folder, thumbFilename(filename));
 }
 
-export function getPhotoFilenames(): string[] {
-	return Array.from({ length: 10 }, (_, i) => `photo_${i + 1}.jpeg`);
+function photoSortKey(filename: string): number {
+	const match = filename.match(/^photo_(\d+)\.jpe?g$/i);
+	return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
+}
+
+export async function getPhotoFilenames(folder: string): Promise<string[]> {
+	const dir = path.join(process.cwd(), 'public', 'photos', folder);
+	const entries = await fs.readdir(dir);
+
+	return entries
+		.filter((name) => /^photo_\d+\.jpe?g$/i.test(name))
+		.sort((a, b) => photoSortKey(a) - photoSortKey(b));
 }
 
 export async function getImageMeta(

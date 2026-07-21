@@ -1,56 +1,62 @@
 [
 	{
-		"slug": "trip-1",
-		"folder": "trip 1",
-		"title": "Trip 1",
+		"slug": "akanica-1",
+		"folder": "Akanica 1",
+		"title": "Akanica 1",
 		"date": "2026-04-24"
 	},
 	{
-		"slug": "trip-2",
-		"folder": "trip 2",
-		"title": "Trip 2",
+		"slug": "akanica-2",
+		"folder": "Akanica 2",
+		"title": "Akanica 2",
 		"date": "2026-05-02"
 	},
 	{
-		"slug": "trip-3",
-		"folder": "trip 3",
-		"title": "Trip 3",
+		"slug": "akanica-3",
+		"folder": "Akanica 3",
+		"title": "Akanica 3",
 		"date": "2026-05-09"
 	},
 	{
-		"slug": "trip-4",
-		"folder": "trip 4",
-		"title": "Trip 4",
+		"slug": "akanica-4",
+		"folder": "Akanica 4",
+		"title": "Akanica 4",
 		"date": "2026-05-17"
 	},
 	{
-		"slug": "trip-5",
-		"folder": "trip 5",
-		"title": "Trip 5",
+		"slug": "akanica-5",
+		"folder": "Akanica 5",
+		"title": "Akanica 5",
 		"date": "2026-05-30"
 	},
 	{
-		"slug": "trip-6",
-		"folder": "trip 6",
-		"title": "Trip 6",
+		"slug": "akanica-6",
+		"folder": "Akanica 6",
+		"title": "Akanica 6",
 		"date": "2026-06-04"
 	},
 	{
-		"slug": "trip-7",
-		"folder": "trip 7",
-		"title": "Trip 7",
+		"slug": "akanica-7",
+		"folder": "Akanica 7",
+		"title": "Akanica 7",
 		"date": "2026-06-06"
 	},
 	{
-		"slug": "trip-8",
-		"folder": "trip 8",
-		"title": "Trip 8",
+		"slug": "akanica-8",
+		"folder": "Akanica 8",
+		"title": "Akanica 8",
 		"date": "2026-06-20"
 	},
 	{
-		"slug": "trip-9",
-		"folder": "trip 9",
-		"title": "Trip 9",
+		"slug": "akanica-9",
+		"folder": "Akanica 9",
+		"title": "Akanica 9",
 		"date": "2026-07-02"
+	},
+	{
+		"slug": "akanica-10",
+		"folder": "Akanica 10",
+		"title": "Akanica 10",
+		"date": "2026-07-10"
 	}
 ]

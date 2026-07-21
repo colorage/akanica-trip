@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { folder, slug } = Astro.props;
-const filenames = getPhotoFilenames();
+const filenames = await getPhotoFilenames(folder);
 const photos = await Promise.all(filenames.map((filename) => getImageMeta(folder, filename)));
 ---
 

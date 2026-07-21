@@ -14,7 +14,7 @@ const { trips } = Astro.props;
 
 {
 	trips.length > 0 && (
-		<nav class="side-nav" aria-label="Trip sections" data-side-nav>
+		<nav class="side-nav is-minimized" aria-label="Trip sections" data-side-nav>
 			<ol class="side-nav__list">
 				{trips.map((trip) => (
 					<li class="side-nav__item">
@@ -30,9 +30,12 @@ const { trips } = Astro.props;
 }
 
 <script>
+	const IDLE_MS = 900;
+
 	function initSideNav() {
 		const nav = document.querySelector<HTMLElement>('[data-side-nav]');
-		if (!nav) return;
+		if (!nav || nav.dataset.sideNavReady === 'true') return;
+		nav.dataset.sideNavReady = 'true';
 
 		const links = [...nav.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')];
 		const sections = links
@@ -43,6 +46,33 @@ const { trips } = Astro.props;
 			.filter((section): section is HTMLElement => Boolean(section));
 
 		if (sections.length === 0) return;
+
+		let idleTimer = 0;
+		let isProgrammaticScroll = false;
+
+		const expand = () => {
+			nav.classList.remove('is-minimized');
+			nav.classList.add('is-expanded');
+		};
+
+		const minimize = () => {
+			if (nav.matches(':hover, :focus-within')) return;
+			nav.classList.add('is-minimized');
+			nav.classList.remove('is-expanded');
+		};
+
+		const scheduleMinimize = () => {
+			window.clearTimeout(idleTimer);
+			idleTimer = window.setTimeout(() => {
+				isProgrammaticScroll = false;
+				minimize();
+			}, IDLE_MS);
+		};
+
+		const onScrollActivity = () => {
+			expand();
+			scheduleMinimize();
+		};
 
 		const setActive = (slug: string) => {
 			for (const link of links) {
@@ -78,6 +108,21 @@ const { trips } = Astro.props;
 
 		setActive(sections[0].id);
 
+		window.addEventListener('scroll', onScrollActivity, { passive: true });
+
+		nav.addEventListener('mouseenter', expand);
+		nav.addEventListener('focusin', expand);
+		nav.addEventListener('mouseleave', () => {
+			if (!isProgrammaticScroll) minimize();
+		});
+		nav.addEventListener('focusout', () => {
+			window.requestAnimationFrame(() => {
+				if (!nav.contains(document.activeElement) && !isProgrammaticScroll) {
+					minimize();
+				}
+			});
+		});
+
 		for (const link of links) {
 			link.addEventListener('click', (event) => {
 				const id = link.dataset.navLink;
@@ -88,6 +133,10 @@ const { trips } = Astro.props;
 				const prefersReducedMotion = window.matchMedia(
 					'(prefers-reduced-motion: reduce)',
 				).matches;
+
+				isProgrammaticScroll = true;
+				expand();
+				scheduleMinimize();
 
 				target.scrollIntoView({
 					behavior: prefersReducedMotion ? 'auto' : 'smooth',

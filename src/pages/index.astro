@@ -6,16 +6,17 @@ import SideNav from '../components/SideNav.astro';
 import { thumbUrl } from '../utils/photos';
 import trips from '../data/trips.json';
 
-const firstTrip = trips[0];
+const tripsNewestFirst = [...trips].sort((a, b) => b.date.localeCompare(a.date));
+const firstTrip = tripsNewestFirst[0];
 const firstCoverSrc = firstTrip ? thumbUrl(firstTrip.folder, 'cover.jpeg') : undefined;
 ---
 
 <Layout title="Akanica Trip">
 	{firstCoverSrc && <link slot="head" rel="preload" as="image" href={firstCoverSrc} fetchpriority="high" />}
-	<SideNav trips={trips} />
+	<SideNav trips={tripsNewestFirst} />
 	<main class="gallery-page">
 		{
-			trips.map((trip, index) => (
+			tripsNewestFirst.map((trip, index) => (
 				<article class="trip" id={trip.slug}>
 					<TripCover
 						title={trip.title}

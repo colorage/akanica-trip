@@ -50,6 +50,192 @@ img.img-fade.is-loaded {
 	}
 }
 
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	height: 4rem;
+	flex-shrink: 0;
+	border-bottom: 1px solid #262626;
+	background: #0a0a0a;
+	padding: 0 0.75rem;
+}
+
+@media (min-width: 768px) {
+	.site-header {
+		padding: 0 1.5rem;
+	}
+}
+
+.site-header__inner {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	height: 100%;
+}
+
+.site-header img {
+	max-width: none;
+	height: auto;
+}
+
+.site-header__logo {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	justify-self: start;
+	text-decoration: none;
+	color: #fff;
+}
+
+@media (min-width: 768px) {
+	.site-header__logo {
+		gap: 1rem;
+	}
+}
+
+.site-header__mark {
+	display: flex;
+	width: 2rem;
+	height: 2rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	background: #6366f1;
+}
+
+.site-header__wordmark {
+	display: none;
+	flex-direction: column;
+	font-family: ui-monospace, 'Geist Mono', 'SFMono-Regular', Menlo, monospace;
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: 0.025em;
+	text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+	.site-header__wordmark {
+		display: flex;
+	}
+}
+
+.site-header__tabs {
+	justify-self: center;
+}
+
+.site-header__tab-list {
+	display: flex;
+	align-items: center;
+	padding: 0.125rem;
+	border: 1px solid #262626;
+	border-radius: 999px;
+	background: #141414;
+}
+
+.site-header__tab {
+	padding: 0.375rem 0.875rem;
+	border-radius: 999px;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.25;
+	color: #a3a3a3;
+	text-decoration: none;
+	transition: color 0.15s ease;
+}
+
+.site-header__tab:hover,
+.site-header__tab:focus-visible {
+	color: #fff;
+}
+
+.site-header__tab.is-active {
+	background: #fff;
+	color: #111827;
+	font-weight: 600;
+}
+
+.site-header__tab.is-active:hover,
+.site-header__tab.is-active:focus-visible {
+	color: #111827;
+}
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	justify-self: end;
+	gap: 0.125rem;
+}
+
+@media (min-width: 640px) {
+	.site-header__actions {
+		gap: 0.25rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.site-header__actions {
+		gap: 0.5rem;
+	}
+}
+
+.site-header__icon {
+	display: flex;
+	width: 2rem;
+	height: 2rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: 999px;
+	color: #a3a3a3;
+	text-decoration: none;
+	transition: color 0.15s ease;
+}
+
+.site-header__icon:hover,
+.site-header__icon:focus-visible {
+	color: #fff;
+}
+
+.site-header__icon:focus-visible,
+.site-header__tab:focus-visible,
+.site-header__coffee:focus-visible,
+.site-header__logo:focus-visible {
+	outline: 2px solid rgba(255, 255, 255, 0.45);
+	outline-offset: 2px;
+}
+
+.site-header__coffee {
+	display: inline-flex;
+	height: 2rem;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0 0.5rem;
+	border: 1px solid #262626;
+	border-radius: 999px;
+	background: #fde047;
+	color: #111827;
+	font-size: 12px;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+@media (min-width: 768px) {
+	.site-header__coffee {
+		padding: 0 0.75rem 0 0.625rem;
+	}
+}
+
+.site-header__coffee-label {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.site-header__coffee-label {
+		display: inline;
+	}
+}
+
 .gallery-page {
 	margin: 0;
 }
@@ -139,8 +325,8 @@ img.img-fade.is-loaded {
 
 .trip-cover {
 	position: relative;
-	min-height: 100vh;
-	min-height: 100dvh;
+	min-height: calc(100vh - 4rem);
+	min-height: calc(100dvh - 4rem);
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
@@ -246,36 +432,3 @@ img.img-fade.is-loaded {
 	}
 }
 
-.site-footer {
-	padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 5vw, 3rem);
-	text-align: center;
-	border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.site-footer__link {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.4rem;
-	font-size: 0.875rem;
-	font-weight: 500;
-	letter-spacing: 0.02em;
-	color: rgba(244, 244, 242, 0.5);
-	text-decoration: none;
-	transition: color 0.2s ease;
-}
-
-.site-footer__link:hover,
-.site-footer__link:focus-visible {
-	color: rgba(244, 244, 242, 0.85);
-}
-
-.site-footer__link:focus-visible {
-	outline: 2px solid rgba(244, 244, 242, 0.25);
-	outline-offset: 3px;
-	border-radius: 2px;
-}
-
-.site-footer__icon {
-	font-size: 1rem;
-	line-height: 1;
-}

@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import Footer from '../components/Footer.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import ImageFade from '../components/ImageFade.astro';
 import Lightbox from '../components/Lightbox.astro';
 
@@ -24,8 +24,8 @@ const { title = 'Akanica Trip' } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		<SiteHeader />
 		<slot />
-		<Footer />
 		<Lightbox />
 		<ImageFade />
 	</body>

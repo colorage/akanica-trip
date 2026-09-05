@@ -397,7 +397,8 @@ img.img-fade.is-loaded {
 }
 
 .photo-grid-section {
-	padding: clamp(1rem, 3vw, 2rem);
+	padding-block: clamp(1rem, 3vw, 2rem);
+	padding-inline: max(4rem, clamp(1rem, 3vw, 2rem));
 }
 
 .photo-grid {

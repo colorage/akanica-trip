@@ -69,9 +69,11 @@ img.img-fade.is-loaded {
 
 .site-header__inner {
 	display: grid;
-	grid-template-columns: 1fr auto 1fr;
+	grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
 	align-items: center;
 	height: 100%;
+	min-width: 0;
+	column-gap: 0.5rem;
 }
 
 .site-header img {
@@ -84,6 +86,7 @@ img.img-fade.is-loaded {
 	align-items: center;
 	gap: 0.75rem;
 	justify-self: start;
+	min-width: 0;
 	text-decoration: none;
 	color: #fff;
 }
@@ -135,7 +138,7 @@ img.img-fade.is-loaded {
 }
 
 .site-header__tab {
-	padding: 0.375rem 0.875rem;
+	padding: 0.375rem 0.65rem;
 	border-radius: 999px;
 	font-size: 13px;
 	font-weight: 500;
@@ -143,6 +146,12 @@ img.img-fade.is-loaded {
 	color: #a3a3a3;
 	text-decoration: none;
 	transition: color 0.15s ease;
+}
+
+@media (min-width: 640px) {
+	.site-header__tab {
+		padding: 0.375rem 0.875rem;
+	}
 }
 
 .site-header__tab:hover,
@@ -165,6 +174,7 @@ img.img-fade.is-loaded {
 	display: flex;
 	align-items: center;
 	justify-self: end;
+	min-width: 0;
 	gap: 0.125rem;
 }
 
@@ -238,6 +248,7 @@ img.img-fade.is-loaded {
 
 .gallery-page {
 	margin: 0;
+	overflow-x: clip;
 }
 
 .side-nav {
@@ -386,17 +397,30 @@ img.img-fade.is-loaded {
 }
 
 .photo-grid-section {
-	padding: clamp(1rem, 3vw, 2rem);
+	padding-block: clamp(1rem, 3vw, 2rem);
+	padding-inline: max(4rem, clamp(1rem, 3vw, 2rem));
 }
 
 .photo-grid {
 	position: relative;
 	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 	gap: 0.75rem;
 }
 
+@media (min-width: 480px) {
+	.photo-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.photo-grid.is-laid-out {
+	display: block;
+}
+
 .photo-grid__item {
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
 	display: block;
@@ -406,6 +430,10 @@ img.img-fade.is-loaded {
 	cursor: zoom-in;
 	background: #1a1a1a;
 	transition: box-shadow 0.2s ease;
+}
+
+.photo-grid.is-laid-out .photo-grid__item {
+	position: absolute;
 	will-change: transform;
 }
 
@@ -415,6 +443,10 @@ img.img-fade.is-loaded {
 
 .photo-grid__item img {
 	width: 100%;
+	height: auto;
+}
+
+.photo-grid.is-laid-out .photo-grid__item img {
 	height: 100%;
 	object-fit: cover;
 }
@@ -429,6 +461,7 @@ img.img-fade.is-loaded {
 	.photo-grid {
 		max-width: 1400px;
 		margin-inline: auto;
+		grid-template-columns: repeat(4, 1fr);
 	}
 }
 

@@ -11,7 +11,7 @@ import {
 
 const mobile = {
 	containerWidth: 390,
-	boxSpacing: 12,
+	boxSpacing: 4,
 	targetRowHeight: 140,
 	minItemsPerRow: 2,
 	maxItemsPerRow: MOBILE_MAX_ITEMS_PER_ROW,

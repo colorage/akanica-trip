@@ -6,7 +6,9 @@ import {
 } from '../lib/justified-layout';
 
 function getBoxSpacing(): number {
-	return window.matchMedia('(min-width: 640px)').matches ? 16 : 12;
+	if (window.matchMedia('(min-width: 1024px)').matches) return 16;
+	if (window.matchMedia('(min-width: 640px)').matches) return 12;
+	return 4;
 }
 
 function layoutGallery(container: HTMLElement): void {

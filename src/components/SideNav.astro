@@ -49,6 +49,20 @@ const { trips } = Astro.props;
 
 		if (sections.length === 0) return;
 
+		const HIDE_DELAY_MS = 900;
+		let hideTimer = 0;
+		const prefersReducedMotion = () =>
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		const showNav = () => {
+			nav.classList.add('is-visible');
+			window.clearTimeout(hideTimer);
+			hideTimer = window.setTimeout(() => {
+				if (nav.matches(':hover, :focus-within')) return;
+				nav.classList.remove('is-visible');
+			}, HIDE_DELAY_MS);
+		};
+
 		const setActive = (slug: string) => {
 			for (const link of links) {
 				const isActive = link.dataset.navLink === slug;
@@ -83,6 +97,19 @@ const { trips } = Astro.props;
 
 		setActive(sections[0].id);
 
+		window.addEventListener('scroll', showNav, { passive: true });
+
+		nav.addEventListener('mouseenter', () => {
+			nav.classList.add('is-visible');
+			window.clearTimeout(hideTimer);
+		});
+
+		nav.addEventListener('mouseleave', () => {
+			hideTimer = window.setTimeout(() => {
+				nav.classList.remove('is-visible');
+			}, HIDE_DELAY_MS);
+		});
+
 		for (const link of links) {
 			link.addEventListener('click', (event) => {
 				const id = link.dataset.navLink;
@@ -90,12 +117,10 @@ const { trips } = Astro.props;
 				if (!target) return;
 
 				event.preventDefault();
-				const prefersReducedMotion = window.matchMedia(
-					'(prefers-reduced-motion: reduce)',
-				).matches;
+				showNav();
 
 				target.scrollIntoView({
-					behavior: prefersReducedMotion ? 'auto' : 'smooth',
+					behavior: prefersReducedMotion() ? 'auto' : 'smooth',
 					block: 'start',
 				});
 

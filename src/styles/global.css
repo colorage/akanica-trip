@@ -254,10 +254,19 @@ img.img-fade.is-loaded {
 .side-nav {
 	position: fixed;
 	top: 50%;
-	left: clamp(0.75rem, 2vw, 1.5rem);
+	left: clamp(0.5rem, 2vw, 1.5rem);
 	z-index: 40;
 	transform: translateY(-50%);
+	opacity: 0;
 	pointer-events: none;
+	transition: opacity 0.45s ease;
+}
+
+.side-nav.is-visible,
+.side-nav:focus-within,
+.side-nav:hover {
+	opacity: 1;
+	pointer-events: auto;
 }
 
 .side-nav__list {
@@ -269,10 +278,10 @@ img.img-fade.is-loaded {
 	gap: 0.2rem;
 	pointer-events: auto;
 	border-radius: 8px;
-	background: rgba(20, 20, 18, 0.28);
+	background: rgba(20, 20, 18, 0.45);
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .side-nav__item {
@@ -324,6 +333,10 @@ img.img-fade.is-loaded {
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.side-nav {
+		transition: none;
+	}
+
 	.side-nav__link,
 	.side-nav__dot {
 		transition: none;
@@ -398,14 +411,12 @@ img.img-fade.is-loaded {
 
 .photo-grid-section {
 	padding-block: clamp(0.75rem, 3vw, 2rem);
-	/* Leave room for fixed side-nav on the left; keep the right edge tight on mobile */
-	padding-left: 2.75rem;
-	padding-right: 0.5rem;
+	padding-inline: 0.5rem;
 }
 
 @media (min-width: 768px) {
 	.photo-grid-section {
-		padding-inline: max(4rem, clamp(1.5rem, 3vw, 2rem));
+		padding-inline: clamp(1.5rem, 3vw, 2rem);
 	}
 }
 
